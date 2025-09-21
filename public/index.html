@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="uk" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <title>Join | Realtime Chat</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="join-shell">
+  <button class="btn btn-outline theme-mini" id="theme-toggle-index" title="Toggle theme">
+    <span id="theme-icon-index">🌙</span>
+  </button>
+
+  <div class="join-wrapper">
+    <form id="join-form" class="join-card" autocomplete="off">
+      <h1>Realtime Chat</h1>
+      <div class="join-form">
+        <div class="field">
+          <label for="username">Username</label>
+          <input id="username" name="username" type="text" placeholder="User123" required minlength="2" maxlength="18">
+        </div>
+        <div class="field">
+          <label for="room">Room</label>
+          <input id="room" name="room" type="text" placeholder="room1" required minlength="2" maxlength="24">
+        </div>
+        <div class="actions">
+          <button type="submit" class="btn primary">Join</button>
+          <button type="reset" class="btn btn-outline">Clear</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    const root = document.documentElement;
+    const btnToggleIndex = document.getElementById('theme-toggle-index');
+    const iconIndex = document.getElementById('theme-icon-index');
+
+    function applyTheme(theme) {
+      root.setAttribute('data-theme', theme);
+      localStorage.setItem('chat-theme', theme);
+      iconIndex.textContent = theme === 'light' ? '🌙' : '☀️';
+    }
+    (function init() {
+      const saved = localStorage.getItem('chat-theme') || 'light';
+      applyTheme(saved);
+    })();
+
+    btnToggleIndex.addEventListener('click', () => {
+      const current = root.getAttribute('data-theme');
+      applyTheme(current === 'light' ? 'dark' : 'light');
+    });
+
+    document.getElementById('join-form').addEventListener('submit', e => {
+      e.preventDefault();
+      const u = e.target.username.value.trim();
+      const r = e.target.room.value.trim();
+      if (!u || !r) return;
+      window.location = `chat.html?username=${encodeURIComponent(u)}&room=${encodeURIComponent(r)}`;
+    });
+  </script>
+</body>
+</html>

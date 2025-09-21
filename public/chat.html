@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="uk" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <title>Chat Room</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="chat-shell">
+  <div class="app-frame">
+    <aside class="sidebar">
+      <div class="sidebar__header">
+        <h2 class="room-title">Room name: <span id="room-name"></span></h2>
+        <p class="you"><span class="you__label">You:</span> <span id="username-current"></span></p>
+      </div>
+
+      <div class="users-panel">
+        <div class="users-panel__title">
+          <span>Users</span>
+          <span class="badge" id="users-count">0</span>
+        </div>
+        <ul id="users" class="users-list"></ul>
+      </div>
+
+      <div class="sidebar__footer">
+        <button class="btn btn-danger" id="leave-btn">Leave</button>
+        <button class="btn btn-outline" id="theme-toggle" title="Toggle theme">
+          <span id="theme-icon">🌙</span>
+        </button>
+      </div>
+    </aside>
+
+    <main class="chat">
+      <header class="chat-header">
+        <h1 class="logo">Realtime Chat</h1>
+      </header>
+
+      <div id="messages" class="messages" aria-live="polite"></div>
+
+      <form id="message-form" class="composer" autocomplete="off">
+        <input id="msg" type="text" placeholder="Type a message..." aria-label="Message" required />
+        <button type="submit" class="btn primary">Send</button>
+      </form>
+    </main>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
